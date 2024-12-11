@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Build-Jdk-Spec: 23
-Implementation-Title: MartinMurillo_Unidad1
-Implementation-Version: 1.0.0T
-Created-By: Maven Integration for Eclipse
-
