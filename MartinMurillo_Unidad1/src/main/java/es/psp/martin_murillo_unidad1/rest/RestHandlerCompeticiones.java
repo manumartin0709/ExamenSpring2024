@@ -59,11 +59,15 @@ public class RestHandlerCompeticiones
 			Jugador jugadorModel = new Jugador();			
 			jugadorModel.setNombre(jugadorDto.getNombre());
 			jugadorModel.setPosicion(jugadorDto.getPosicion());
+			jugadorModel.setIdEquipo(null);
 			this.jugadorRepository.saveAndFlush(jugadorModel);
 			LOGGER.info("jugador creado");
 			return ResponseEntity.status(204).body("Jugador creadro con exito");
 		}
-		return ResponseEntity.status(404).body("El jugador ya existe");
+		else
+		{
+			return ResponseEntity.status(404).body("El jugador ya existe");
+		}
 		
 	}
 	
@@ -73,21 +77,24 @@ public class RestHandlerCompeticiones
 	{
 		try 
 		{
-			List<Jugador> jugadorList = this.jugadorRepository.findAll();
+			Equipo equipo = new Equipo();
 			Optional<Equipo> equipo2 = this.equipoRepository.findById(equipoDto.getNombre());
+			List<Jugador> jugadorList = this.jugadorRepository.findAll();
 			List<String> jugadorJuntos =  new ArrayList<String>();
-			for(int i = 0; i< jugadorList.size(); i++)
-			{
-				Jugador jugadorEquipo= jugadorList.get(i);
-				if(jugadorEquipo.getIdEquipo().equals(equipoDto.getNombre()))
-				{
-					
-					jugadorJuntos.add(jugadorEquipo.getNombre());
-				}
-				equipoDto.setJugadores(jugadorJuntos);
-			}
+			equipo.setNombre(equipoDto.getNombre());
 			
-			if (equipo2 == null)
+//			for(int i = 0; i< jugadorList.size(); i++)
+//			{
+//				Jugador jugadorEquipo= jugadorList.get(i);
+//				if(jugadorEquipo.getIdEquipo() == equipoDto.getNombre() )
+//				{
+//					
+//					jugadorJuntos.add(jugadorEquipo.getNombre());
+//				}
+//				equipoDto.setJugadores(jugadorJuntos);
+//			}
+			
+			if (equipo2 == null || equipo2.isEmpty())
 			{	
 				
 				this.equipoRepository.saveAndFlush(equipo);
