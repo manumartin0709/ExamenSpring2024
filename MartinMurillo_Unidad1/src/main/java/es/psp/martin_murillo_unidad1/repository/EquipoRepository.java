@@ -8,5 +8,5 @@ import es.psp.martin_murillo_unidad1.models.Equipo;
 @Repository
 public interface EquipoRepository extends JpaRepository<Equipo, String> 
 {
-
+      List<Equipo> findByNombre(String nombre);
 }
